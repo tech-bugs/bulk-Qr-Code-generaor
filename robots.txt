@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /install/
+Disallow: /404.php
+Allow: /index.php
+Allow: /blog.php
+Allow: /contact.php
+Allow: /article.php?id=*
+Allow: /page.php?id=*

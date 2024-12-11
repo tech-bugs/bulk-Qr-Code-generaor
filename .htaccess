@@ -1,0 +1,41 @@
+# Turn on RewriteEngine
+RewriteEngine On
+
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Redirect HTTP to HTTPS
+# Uncomment the following lines if you have SSL and want to enforce HTTPS
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Handle Front Controller Pattern
+# Redirect all requests to index.php except actual files/directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+# Protect .htaccess and .env files
+<FilesMatch "\.(htaccess|env)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
+
+# Specify default file to serve for directories
+DirectoryIndex index.php
+
+# Add custom MIME types (if needed)
+# AddType application/x-httpd-php .html
+
+# Set PHP values (if needed)
+# php_value upload_max_filesize 10M
+# php_value post_max_size 10M
+# php_value memory_limit 256M
+
+# Custom 404 error page
+ErrorDocument 404 /404.php
+
